@@ -11,15 +11,18 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Auth::routes(['register' => false]);
 
-Auth::routes();
+Route::get('/', function () {
+    return redirect('home');
+    //return view('welcome');
+});
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-/** RUTAS CLIENTES */
-Route::resource('/clientes', 'ClientesController');
-Route::post('/clientes_search', 'ClientesController@search');
-Route::get('/clientes_search', 'ClientesController@search');
+Route::group(['middleware'=>'auth'], function () {
+    /** RUTAS CLIENTES */
+    Route::resource('/clientes', 'ClientesController');
+    Route::post('/clientes_search', 'ClientesController@search');
+    Route::get('/clientes_search', 'ClientesController@search');
+});
