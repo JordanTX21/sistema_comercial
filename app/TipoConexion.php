@@ -4,12 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Clientes extends Model
+class TipoConexion extends Model
 {
-    protected $table = 'clientes';
-
+    protected $table = 'tipo_conexions';
+    
     protected $fillable = [
-        'nombre', 'apellido', 'tipo_documento_id', 'documento', 'deuda',
+        'tipo',
     ];
 
     /**
@@ -18,6 +18,6 @@ class Clientes extends Model
      * @var array
      */
     protected $hidden = [
-        'tipo_documento_id', 'status', 'updated_at', 'created_at',
+        'status', 'updated_at', 'created_at',
     ];
 }
