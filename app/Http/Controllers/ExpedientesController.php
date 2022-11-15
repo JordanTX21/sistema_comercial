@@ -23,6 +23,11 @@ class ExpedientesController extends Controller
     {
         $expedientes = Expediente::with(WithUtils::withExpediente())->orderBy('id','desc')->get();
 
+        foreach($expedientes as $expediente){
+            $expediente->titulo_propiedad = $expediente->titulo_propiedad? json_decode($expediente->titulo_propiedad,true)["url"]: null;
+            $expediente->mapa_ubicacion = $expediente->mapa_ubicacion? json_decode($expediente->mapa_ubicacion,true)["url"]: null;
+        }
+
         $tipo_documentos = TipoDocumentos::where('status','=',1)->get();
         return view('modules.expedientes.expedientes',[
             "tipo_documentos" => $tipo_documentos,

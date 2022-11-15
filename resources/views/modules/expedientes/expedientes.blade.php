@@ -20,7 +20,8 @@
                 <div class="card">
                     <div class="card-header bg-dark text-white h4">Registro</div>
                     <div class="card-body">
-                        <form class="row" action="/expedientes" method="POST" id="expedientes_form" enctype="multipart/form-data">
+                        <form class="row" action="/expedientes" method="POST" id="expedientes_form"
+                            enctype="multipart/form-data">
                             @csrf
                             <div class="col-md-12">
                                 <h5 class="card-title">Datos Usuario</h5>
@@ -136,13 +137,22 @@
                                 <tr>
                                     <th scope="col">COD. EXPEDIENTE</th>
                                     <th scope="col">CLIENTE</th>
+                                    <th scope="col">ARCHIVOS</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($expedientes as $expediente)
                                     <tr>
-                                        <th scope="row">{{ "EXP".date('mY',strtotime($expediente->created_at)).str_pad($expediente->id,2,'0', STR_PAD_LEFT) }}</th>
+                                        <th scope="row">
+                                            {{ 'EXP' . date('mY', strtotime($expediente->created_at)) . str_pad($expediente->id, 2, '0', STR_PAD_LEFT) }}
+                                        </th>
                                         <td>{{ $expediente->cliente->nombre }}</td>
+                                        <td>
+                                            <div class="btn-group" role="group" aria-label="Basic example">
+                                                <a type="button" href="{{ url("/file-view/$expediente->titulo_propiedad") }}" target="_blank" class="btn btn-primary">Titulo propiedad</a>
+                                                <a type="button" href="{{ url("/file-view/$expediente->mapa_ubicacion") }}" target="_blank" class="btn btn-success">Croquis</a>
+                                            </div>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
